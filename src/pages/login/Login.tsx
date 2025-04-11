@@ -8,7 +8,7 @@ import { FormEvent } from "react";
 const Login = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const { userLogin, setUser, googleLogin } = useAuthContext();
+  const { userLogin, setUser } = useAuthContext();
 
   const handleLogin = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -25,19 +25,6 @@ const Login = () => {
       })
       .catch((error: Error) => {
         toast.error("Login failed!  " + error.message);
-      });
-  };
-
-  const handleGoogleLogin = () => {
-    googleLogin()
-      .then((res) => {
-        const user = res.user;
-        setUser(user);
-        toast.success("Google login successful!");
-        navigate(location?.state ? location.state : "/");
-      })
-      .catch((error) => {
-        toast.error("Google login failed! " + error.message);
       });
   };
 
@@ -83,9 +70,7 @@ const Login = () => {
                     Login
                   </button>
                   <div className="divider text-sm text-gray-500">OR</div>
-                  <div onClick={handleGoogleLogin}>
-                    <SocialLogin />
-                  </div>
+                  <SocialLogin />
                 </div>
                 <p className="text-center text-sm text-gray-600">
                   Don’t have an account?{" "}
