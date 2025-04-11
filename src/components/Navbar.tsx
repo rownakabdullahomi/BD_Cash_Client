@@ -1,9 +1,46 @@
 import { Link, NavLink } from "react-router-dom";
-import userImage from "../assets/user.gif";
-import { PiBellSimpleRinging } from "react-icons/pi";
+import userImage from "../assets/user.jpg";
+import { useAuthContext } from "../providers/AuthProvider";
+import { useEffect, useRef, useState } from "react";
+import toast from "react-hot-toast";
 
 const Navbar = () => {
-  const notificationCount = 3; // Example notification count
+
+
+  const { user, userLogout } = useAuthContext();
+  const [profileDropdownOpen, setProfileDropdownOpen] = useState(false);
+  const profileDropdownRef = useRef<HTMLDivElement>(null);
+
+  const toggleProfileDropdown = () => {
+    setProfileDropdownOpen(!profileDropdownOpen);
+  };
+
+  // Close profile dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        profileDropdownRef.current &&
+        !profileDropdownRef.current.contains(event.target as Node)
+      ) {
+        setProfileDropdownOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
+  const handleLogout = () => {
+    userLogout()
+      .then(() => {
+        toast.success("Logout Successful!");
+      })
+      .catch((error: Error) => {
+        toast.error("Error logging out! " + error.message);
+      });
+  };
 
   const links = (
     <>
@@ -15,6 +52,7 @@ const Navbar = () => {
       </li>
     </>
   );
+
   return (
     <div className="px-4 lg:px-6">
       <div className="navbar justify-between py-2">
@@ -40,33 +78,60 @@ const Navbar = () => {
 
         {/* Navbar End */}
         <div className="flex items-center justify-end space-x-4 flex-auto">
-          {/* notification icon */}
-          <button className="relative text-2xl p-2 mt-1">
-            <PiBellSimpleRinging />
-            {/* Notification badge */}
-            {notificationCount > 0 && (
-              <span className="absolute top-0 right-0 text-xs font-semibold text-white bg-red-500 rounded-full w-5 h-5 flex items-center justify-center">
-                {notificationCount}
-              </span>
-            )}
-          </button>
 
           {/* Profile Dropdown */}
           <div
-            // ref={profileDropdownRef}
+            ref={profileDropdownRef}
             className="dropdown dropdown-end relative"
           >
             <button
+              onClick={toggleProfileDropdown}
               className="btn btn-ghost btn-circle avatar"
               aria-label="Toggle Profile Dropdown"
             >
-              <div className="w-9 h-9 flex items-center justify-center rounded-full overflow-hidden border border-gray-300 bg-gray-200">
-                <img src={userImage} alt="" className="object-cover" />
+              <div className="w-10 h-10 flex items-center justify-center rounded-full overflow-hidden border border-gray-300 bg-gray-200">
+                {user && user.email ? (
+                  <img
+                    referrerPolicy="no-referrer"
+                    alt="User Profile"
+                    src={user.photoURL || userImage}
+                    className="w-full h-full object-cover animate-pulse"
+                  />
+                ) : (
+                  <img src={userImage} alt="Default User" />
+                )}
               </div>
             </button>
-            <ul className="menu menu-sm font-Inter font-semibold dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow">
-                <li><Link to={"/login"}>Login</Link></li>
-            </ul>
+            {profileDropdownOpen && (
+              <ul className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow">
+                {/* Username (non-clickable) */}
+                {user?.email && (
+                  <li>
+                    <div
+                      id="name"
+                      className="justify-between text-base-content font-semibold"
+                    >
+                      {user.displayName || user.email}
+                    </div>
+                  </li>
+                )}
+
+                <li>
+                  {user?.email ? (
+                    <button
+                      onClick={handleLogout}
+                      className="text-error font-semibold"
+                    >
+                      Logout
+                    </button>
+                  ) : (
+                    <Link to="/login" className="text-primary font-semibold">
+                      Login
+                    </Link>
+                  )}
+                </li>
+              </ul>
+            )}
           </div>
         </div>
       </div>
