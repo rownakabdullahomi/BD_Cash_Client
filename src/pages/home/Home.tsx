@@ -11,7 +11,7 @@ const Home = () => {
 
   const handleAddMoney = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const form = e.currentTarget; // Get the form element
+    const form = e.currentTarget; 
   
     try {
       const formData = new FormData(form);
@@ -30,6 +30,29 @@ const Home = () => {
       form.reset();
     } catch (error: any) {
       toast.error("Failed to add money", error.message);
+    }
+  };
+  const handlePayMoney = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const form = e.currentTarget; 
+  
+    try {
+      const formData = new FormData(form);
+      const payAmount = formData.get("payAmount") as string;
+      
+      const payMoneyData = { 
+        payAmount,
+        status: "pending",
+        transactionType: "Pay Money",
+        createdAt: new Date().toISOString()
+      };
+  
+      await axiosPublic.post("/pay-money-request", payMoneyData);
+      toast.success("Pay Money request sent successfully!");
+      
+      form.reset();
+    } catch (error: any) {
+      toast.error("Failed to pay money", error.message);
     }
   };
 
@@ -106,7 +129,7 @@ const Home = () => {
               <h2 className="text-xl font-semibold text-gray-700 mb-4">
                 Pay Money
               </h2>
-              <form>
+              <form onSubmit={handlePayMoney}>
                 <div className="mb-6">
                   <label
                     htmlFor="amount"
