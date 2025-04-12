@@ -4,7 +4,7 @@ const Profile = () => {
   const { user } = useAuthContext();
 
   return (
-    <div className="min-h-screen bg-base-100 py-12 px-4 sm:px-6 lg:px-8">
+    <div className="bg-base-100 py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-md mx-auto">
         <div className="bg-white shadow-xl rounded-lg overflow-hidden">
           {/* Profile Header */}

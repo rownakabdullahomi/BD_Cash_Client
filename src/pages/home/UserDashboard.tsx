@@ -129,7 +129,7 @@ const UserDashboard = () => {
 
   if (isLoading || isLoadingTransaction) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-white">
+      <div className="m-h-screen flex items-center justify-center bg-white">
         <span className="text-lg font-medium text-gray-600 animate-pulse">
           Loading...
         </span>
@@ -137,7 +137,7 @@ const UserDashboard = () => {
     );
   }
   return (
-    <div className="min-h-screen bg-base-100 p-4 md:p-8">
+    <div className=" bg-base-100 p-4 md:p-8">
       <div className="max-w-6xl mx-auto">
         <div className="flex flex-col lg:flex-row gap-6">
           {/* Current Balance Section */}

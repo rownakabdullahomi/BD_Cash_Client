@@ -20,10 +20,10 @@ const MainLayout = () => {
           },
         }}
       />
-      <nav className="w-full fixed backdrop-blur-md backdrop-saturate-150 bg-white/30 text-base shadow-md top-0 z-50">
+      <nav className="w-full sticky backdrop-blur-md backdrop-saturate-150 bg-white/30 text-base shadow-md top-0 z-50">
         <Navbar />
       </nav>
-      <main className="pt-16">
+      <main className="min-h-[calc(100vh-173px)]">
         <Outlet />
       </main>
       <footer>
