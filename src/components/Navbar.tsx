@@ -69,21 +69,16 @@ const Navbar = () => {
         <>
           <li>
             <NavLink
-              to={
-                type === "user"
-                  ? "/dashboard/user"
-                  
-                  : "/dashboard/admin"
-              }
+              to={type === "user" ? "/dashboard/user" : "/dashboard/admin"}
             >
               Dashboard
             </NavLink>
           </li>
-          <li>
-            <NavLink to={"/myProfile"}>My Profile</NavLink>
-          </li>
         </>
       )}
+      <li>
+        <NavLink to={"/profile"}>My Profile</NavLink>
+      </li>
       <li>
         <NavLink to="/about">About Us</NavLink>
       </li>
@@ -141,8 +136,8 @@ const Navbar = () => {
                     to={"/"}
                     className="flex gap-0 font-Inter relative text-gray-500 group-hover:text-white transition-colors duration-300"
                   >
-                     <span className="text-green-600">BD_</span>
-                     <span className="text-red-600">Cash</span>
+                    <span className="text-green-600">BD_</span>
+                    <span className="text-red-600">Cash</span>
                   </Link>
                 </li>
                 <div className="font-semibold font-Inter">{links}</div>
@@ -158,15 +153,14 @@ const Navbar = () => {
 
         {/* Navbar End */}
         <div className="flex items-center space-x-4">
-
-         {/* Theme Toggle */}
+          {/* Theme Toggle */}
           <button
             className="p-2 text-2xl"
             onClick={toggleTheme}
             title="Toggle Theme"
           >
             {theme === "light" ? (
-              <FaMoon className="text-gray-300 transition-transform duration-300 hover:scale-110" />
+              <FaMoon className="text-gray-400 transition-transform duration-300 hover:scale-110" />
             ) : (
               <FaSun className="text-yellow-500 transition-transform duration-300 hover:scale-110" />
             )}

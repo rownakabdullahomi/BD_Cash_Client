@@ -7,3 +7,8 @@
   --font-Gilda: "Gilda Display", serif;
   --font-Inter: "Inter", sans-serif;
 }
+
+.active {
+  color: white;
+  background-color: #432DD7;
+}

@@ -8,6 +8,8 @@ import Requests from "../pages/Admin/Requests";
 import UserDashboard from "../pages/home/UserDashboard";
 import AdminRoute from "./AdminRoute";
 import UserRoute from "./UserRoute";
+import Profile from "../pages/Profile";
+import PrivateRoute from "./PrivateRoute";
 
 const Router = createBrowserRouter([
   {
@@ -36,6 +38,11 @@ const Router = createBrowserRouter([
       {
         path: "/dashboard/user",
         element: <UserRoute><UserDashboard/></UserRoute>,
+        
+      },
+      {
+        path: "/profile",
+        element: <PrivateRoute><Profile/></PrivateRoute>,
         
       },
     ],
