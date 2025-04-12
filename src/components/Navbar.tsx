@@ -4,36 +4,51 @@ import { useAuthContext } from "../providers/AuthProvider";
 import { useEffect, useRef, useState } from "react";
 import toast from "react-hot-toast";
 import useRole from "../hooks/useRole";
+import { FaMoon, FaSun } from "react-icons/fa";
 
 const Navbar = () => {
+  const [theme, setTheme] = useState(() => {
+    return localStorage.getItem("theme") || "light";
+  });
   const [type, isLoading] = useRole();
-  console.log(type);
-
   const { user, userLogout } = useAuthContext();
+  const [dropdownOpen, setDropdownOpen] = useState(false);
   const [profileDropdownOpen, setProfileDropdownOpen] = useState(false);
   const profileDropdownRef = useRef<HTMLDivElement>(null);
 
+  useEffect(() => {
+    document.documentElement.setAttribute("data-theme", theme);
+    localStorage.setItem("theme", theme);
+  }, [theme]);
+
+  const toggleTheme = () => {
+    setTheme((prevTheme) => (prevTheme === "light" ? "dark" : "light"));
+  };
+
+  const toggleDropdown = () => {
+    setDropdownOpen(!dropdownOpen);
+  };
 
   const toggleProfileDropdown = () => {
     setProfileDropdownOpen(!profileDropdownOpen);
   };
 
-  // Close profile dropdown when clicking outside
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (
-        profileDropdownRef.current &&
-        !profileDropdownRef.current.contains(event.target as Node)
-      ) {
-        setProfileDropdownOpen(false);
-      }
-    };
+  // // Close profile dropdown when clicking outside
+  // useEffect(() => {
+  //   const handleClickOutside = (event: MouseEvent) => {
+  //     if (
+  //       profileDropdownRef.current &&
+  //       !profileDropdownRef.current.contains(event.target as Node)
+  //     ) {
+  //       setProfileDropdownOpen(false);
+  //     }
+  //   };
 
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, []);
+  //   document.addEventListener("mousedown", handleClickOutside);
+  //   return () => {
+  //     document.removeEventListener("mousedown", handleClickOutside);
+  //   };
+  // }, []);
 
   const handleLogout = () => {
     userLogout()
@@ -50,7 +65,9 @@ const Navbar = () => {
       <li>
         <NavLink to="/">Home</NavLink>
       </li>
-      <li>
+      {user && (
+        <>
+          <li>
             <NavLink
               to={
                 type === "user"
@@ -62,6 +79,20 @@ const Navbar = () => {
               Dashboard
             </NavLink>
           </li>
+          <li>
+            <NavLink to={"/myProfile"}>My Profile</NavLink>
+          </li>
+        </>
+      )}
+      <li>
+        <NavLink to="/about">About Us</NavLink>
+      </li>
+      <li>
+        <NavLink to="/contact">Contact Us</NavLink>
+      </li>
+      <li>
+        <NavLink to="/blogs">Blogs</NavLink>
+      </li>
     </>
   );
 
@@ -69,27 +100,77 @@ const Navbar = () => {
     <div className="px-4 lg:px-6">
       <div className="navbar justify-between py-2">
         {/* Navbar Start */}
-        <div className="flex items-center justify-between gap-5 flex-auto">
+        <div className="flex items-center">
           <Link
             to="/"
-            className=" text-2xl font-bold font-Gilda tracking-tight relative group"
+            className=" hidden lg:block text-4xl font-bold font-Inter tracking-tight relative group"
           >
             <span className="absolute inset-0 blur-lg opacity-30  transition-opacity duration-300"></span>
-            <div className="relative duration-300 font-bold">
+            <div className="relative duration-300 font-bold italic">
               <span className="text-green-600">BD_</span>
               <span className="text-red-600">Cash</span>
             </div>
           </Link>
 
-          <div className="">
-            <ul className="menu menu-horizontal font-bold text-sm font-Inter">
-              {links}
-            </ul>
+          <div className="dropdown lg:hidden">
+            <button
+              onClick={toggleDropdown}
+              className="btn btn-outline btn-primary"
+              aria-label="Toggle Menu"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-6 w-6"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M4 6h16M4 12h8m-8 6h16"
+                />
+              </svg>
+            </button>
+            {dropdownOpen && (
+              <ul className="menu dropdown-content bg-base-100 rounded-box mt-3 w-52 p-2 shadow z-10">
+                <li className="font-bold italic text-xl my-2 mx-auto tracking-tight relative group">
+                  <span className="absolute inset-0 transition-opacity duration-300 mb-5"></span>
+                  <Link
+                    to={"/"}
+                    className="flex gap-0 font-Inter relative text-gray-500 group-hover:text-white transition-colors duration-300"
+                  >
+                     <span className="text-green-600">BD_</span>
+                     <span className="text-red-600">Cash</span>
+                  </Link>
+                </li>
+                <div className="font-semibold font-Inter">{links}</div>
+              </ul>
+            )}
           </div>
+        </div>
+        <div className="navbar-center hidden lg:flex">
+          <ul className="menu menu-horizontal space-x-6 font-bold font-Inter">
+            {links}
+          </ul>
         </div>
 
         {/* Navbar End */}
-        <div className="flex items-center justify-end space-x-4 flex-auto">
+        <div className="flex items-center space-x-4">
+
+         {/* Theme Toggle */}
+          <button
+            className="p-2 text-2xl"
+            onClick={toggleTheme}
+            title="Toggle Theme"
+          >
+            {theme === "light" ? (
+              <FaMoon className="text-gray-300 transition-transform duration-300 hover:scale-110" />
+            ) : (
+              <FaSun className="text-yellow-500 transition-transform duration-300 hover:scale-110" />
+            )}
+          </button>
 
           {/* Profile Dropdown */}
           <div
@@ -106,30 +187,28 @@ const Navbar = () => {
                   <img
                     referrerPolicy="no-referrer"
                     alt="User Profile"
-                    src={user.photoURL || userImage}
+                    src={user?.photoURL || "user"}
                     className="w-full h-full object-cover animate-pulse"
                   />
                 ) : (
-                  <img src={userImage} alt="Default User" />
+                  <img src={userImage} alt="" />
                 )}
               </div>
             </button>
             {profileDropdownOpen && (
               <ul className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow">
                 {/* Username (non-clickable) */}
-                {user?.email && (
-                  <li>
-                    <div
-                      id="name"
-                      className="justify-between text-base-content font-semibold"
-                    >
-                      {user.displayName || user.email}
-                    </div>
-                  </li>
-                )}
+                <li>
+                  <div
+                    id="name"
+                    className="justify-between text-base-content font-semibold"
+                  >
+                    {user?.email ? user.displayName : ""}
+                  </div>
+                </li>
 
                 <li>
-                  {user?.email ? (
+                  {user && user?.email ? (
                     <button
                       onClick={handleLogout}
                       className="text-error font-semibold"
