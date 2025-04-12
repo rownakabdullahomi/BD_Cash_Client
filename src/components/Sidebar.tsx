@@ -12,7 +12,7 @@ const Sidebar: React.FC<SidebarProps> = ({ toggleSidebar }) => {
     {
       name: "Transaction Requests",
       icon: <BiHelpCircle />,
-      path: "/requests",
+      path: "requests",
     },
 
     { name: "Profile", icon: <FaUser />, path: "profile" },

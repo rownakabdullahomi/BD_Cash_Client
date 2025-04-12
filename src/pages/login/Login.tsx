@@ -15,18 +15,20 @@ const Login = () => {
     const formData = new FormData(e.currentTarget);
     const email = formData.get("email") as string;
     const password = formData.get("password") as string;
-
+  
     userLogin(email, password)
       .then((res) => {
         const user = res.user;
         setUser(user);
         toast.success("Login successful!");
-        navigate(location?.state ? location.state : "/");
+        const redirectPath = location.state?.from?.pathname || "/";
+        navigate(redirectPath, { replace: true });
       })
       .catch((error: Error) => {
         toast.error("Login failed!  " + error.message);
       });
   };
+  
 
   return (
     <div className="hero bg-base-200 min-h-screen">

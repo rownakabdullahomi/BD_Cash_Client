@@ -13,7 +13,7 @@ const UserDashboard = () => {
   const { user } = useAuthContext();
   console.log(user?.email);
   const [type, isLoading] = useRole();
-  console.log(type);
+  console.log("Role status:", { type, isLoading });
 
   const axiosSecure = useAxiosSecure();
 
@@ -30,13 +30,19 @@ const UserDashboard = () => {
     enabled: !!user?.email,
   });
 
+  console.log("Transaction status:", {
+    isLoadingTransaction,
+    transaction,
+    userEmail: user?.email,
+  });
+
   // Use useEffect to handle side effects when data changes
   useEffect(() => {
     if (transaction) {
       console.log(transaction);
-      setTotalAddedBalance(transaction.totalAdded);
-      setTotalPaidBalance(transaction.totalPaid);
-      setBalance(transaction.currentBalance);
+      setTotalAddedBalance(transaction.totalAdded || 0);
+      setTotalPaidBalance(transaction.totalPaid || 0);
+      setBalance(transaction.currentBalance || 0);
     }
   }, [transaction]);
 
@@ -120,7 +126,7 @@ const UserDashboard = () => {
     }
   };
 
-  if (isLoading || isLoadingTransaction || !transaction) {
+  if (isLoading || isLoadingTransaction) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-white">
         <span className="text-lg font-medium text-gray-600 animate-pulse">

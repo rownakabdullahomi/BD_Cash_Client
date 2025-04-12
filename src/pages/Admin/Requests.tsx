@@ -77,6 +77,30 @@ const Requests = () => {
       Swal.fire("Error", `Failed to approve ${error}`, "error");
     }
   };
+  const handleReject = async (transactionId: string) => {
+    
+
+    const res = await axiosSecure(`/transaction/${transactionId}`);
+    console.log(res.data);
+
+   
+    const status = "rejected";
+
+    const data = {
+        status
+    }
+
+
+    try {
+        const res = await axiosSecure.patch(`/transaction/${transactionId}`, data);
+      if (res.data.modifiedCount > 0) {
+        refetch();
+        Swal.fire("Success", "Request rejected successfully!", "success");
+      }
+    } catch (error) {
+      Swal.fire("Error", `Failed to reject ${error}`, "error");
+    }
+  };
 
   return (
     <div className="px-4 sm:px-6 lg:px-8 py-8">
@@ -151,7 +175,7 @@ const Requests = () => {
                         Approve
                       </button>
                       <button
-                        // onClick={() => handleReject(transaction._id)}
+                        onClick={() => handleReject(transaction._id)}
                         disabled={transaction.status !== 'pending'}
                         className={`text-red-600 hover:text-red-900 ${transaction.status !== 'pending' ? 'opacity-50 cursor-not-allowed' : ''}`}
                       >
