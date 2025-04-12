@@ -1,9 +1,14 @@
 import { Toaster } from "react-hot-toast"
 import Navbar from "../components/Navbar"
-import Home from "../pages/home/Home"
+
+import useRole from "../hooks/useRole";
+
+import { Outlet } from "react-router-dom";
 
 
 const MainLayout = () => {
+  const [type, isLoading] = useRole();
+  console.log(type);
   return (
     <div>
       <Toaster
@@ -19,7 +24,7 @@ const MainLayout = () => {
             <Navbar/>
         </nav>
         <main>
-          <Home></Home>
+          <Outlet/>
         </main>
         <footer></footer>
     </div>

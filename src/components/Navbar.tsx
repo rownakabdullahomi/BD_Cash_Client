@@ -3,13 +3,16 @@ import userImage from "../assets/user.jpg";
 import { useAuthContext } from "../providers/AuthProvider";
 import { useEffect, useRef, useState } from "react";
 import toast from "react-hot-toast";
+import useRole from "../hooks/useRole";
 
 const Navbar = () => {
-
+  const [type, isLoading] = useRole();
+  console.log(type);
 
   const { user, userLogout } = useAuthContext();
   const [profileDropdownOpen, setProfileDropdownOpen] = useState(false);
   const profileDropdownRef = useRef<HTMLDivElement>(null);
+
 
   const toggleProfileDropdown = () => {
     setProfileDropdownOpen(!profileDropdownOpen);
@@ -48,8 +51,17 @@ const Navbar = () => {
         <NavLink to="/">Home</NavLink>
       </li>
       <li>
-        <NavLink to="/dashboard">Dashboard</NavLink>
-      </li>
+            <NavLink
+              to={
+                type === "user"
+                  ? "/dashboard/user"
+                  
+                  : "/dashboard/admin"
+              }
+            >
+              Dashboard
+            </NavLink>
+          </li>
     </>
   );
 
