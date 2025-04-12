@@ -39,7 +39,7 @@ const SignUp = () => {
       // 3. Save to MongoDB
       const createdAt =
         res.user?.metadata?.creationTime || new Date().toISOString();
-      const type = "User";
+      const type = "user";
       const newUser = { name, email, photo, type, createdAt };
       await axiosPublic.post("/users", newUser);
 

@@ -1,5 +1,6 @@
 import { Toaster } from "react-hot-toast"
 import Navbar from "../components/Navbar"
+import Home from "../pages/home/Home"
 
 
 const MainLayout = () => {
@@ -17,7 +18,9 @@ const MainLayout = () => {
         <nav>
             <Navbar/>
         </nav>
-        <main></main>
+        <main>
+          <Home></Home>
+        </main>
         <footer></footer>
     </div>
   )
