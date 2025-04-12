@@ -1,13 +1,5 @@
 import { BiHelpCircle, BiLogOut } from "react-icons/bi";
-import {
-
-
-  FaHome,
-
-  FaTimes,
-  FaUser,
-
-} from "react-icons/fa";
+import { FaTimes, FaUser } from "react-icons/fa";
 import { Link, NavLink } from "react-router-dom";
 
 interface SidebarProps {
@@ -23,9 +15,7 @@ const Sidebar: React.FC<SidebarProps> = ({ toggleSidebar }) => {
       path: "/requests",
     },
 
-
     { name: "Profile", icon: <FaUser />, path: "profile" },
-
   ];
   return (
     <aside className="w-64  bg-base-300 text-black font-Gilda h-full shadow-lg flex flex-col">
@@ -33,9 +23,7 @@ const Sidebar: React.FC<SidebarProps> = ({ toggleSidebar }) => {
       <div className="p-6 text-center flex lg:block justify-between">
         <div>
           <h2 className="text-2xl font-bold">Admin</h2>
-          <p className="text-sm text-black font-Inter mt-2">
-            Welcome
-          </p>
+          <p className="text-sm text-black font-Inter mt-2">Welcome</p>
         </div>
         {/* Close Button for Mobile */}
         <div className=" lg:hidden ">

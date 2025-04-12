@@ -3,11 +3,13 @@ import { FormEvent, useState } from "react";
 import toast from "react-hot-toast";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 import useRole from "../../hooks/useRole";
+import { useAuthContext } from "../../providers/AuthProvider";
 
 const UserDashboard = () => {
   const [amount, setAmount] = useState<string>("");
   const [balance, setBalance] = useState<number>(0); // Example balance
-
+  const {user}  = useAuthContext();
+  console.log(user?.email);
   const [type, isLoading] = useRole();
   console.log(type);
 
@@ -19,12 +21,16 @@ const UserDashboard = () => {
   
     try {
       const formData = new FormData(form);
-      const addAmount = formData.get("addAmount") as string;
+      const requestAmount = formData.get("addAmount") as string;
+      const createdBy = user?.email;
+      const currentBalance = balance;
       
       const addMoneyData = { 
-        addAmount,
+        requestAmount,
         status: "pending",
         transactionType: "Add Money",
+        currentBalance,
+        createdBy,
         createdAt: new Date().toISOString()
       };
   
@@ -42,12 +48,16 @@ const UserDashboard = () => {
   
     try {
       const formData = new FormData(form);
-      const payAmount = formData.get("payAmount") as string;
+      const requestAmount = formData.get("payAmount") as string;
+      const createdBy = user?.email;
+      const currentBalance = balance;
       
       const payMoneyData = { 
-        payAmount,
+        requestAmount,
         status: "pending",
         transactionType: "Pay Money",
+        currentBalance,
+        createdBy,
         createdAt: new Date().toISOString()
       };
   
