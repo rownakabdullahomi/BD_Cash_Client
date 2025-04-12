@@ -5,6 +5,7 @@ import useAxiosSecure from "../../hooks/useAxiosSecure";
 import useRole from "../../hooks/useRole";
 import { useAuthContext } from "../../providers/AuthProvider";
 import { useQuery } from "@tanstack/react-query";
+import { Link } from "react-router-dom";
 
 const UserDashboard = () => {
   const [totalAddedBalance, setTotalAddedBalance] = useState<number>(0);
@@ -246,9 +247,9 @@ const UserDashboard = () => {
             </div>
           </div>
         </div>
-        <div className="flex justify-center">
+        <Link to={"/history"} className="flex justify-center">
           <div className="mt-14 btn btn-outline btn-primary">View History</div>
-        </div>
+        </Link>
       </div>
     </div>
   );

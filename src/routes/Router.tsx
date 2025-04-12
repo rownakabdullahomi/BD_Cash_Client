@@ -11,6 +11,7 @@ import UserRoute from "./UserRoute";
 import Profile from "../pages/Profile";
 import PrivateRoute from "./PrivateRoute";
 import About from "../pages/About";
+import History from "../pages/History";
 
 const Router = createBrowserRouter([
   {
@@ -23,7 +24,11 @@ const Router = createBrowserRouter([
       },
       {
         path: "/dashboard/admin",
-        element: <AdminRoute><DashboardLayout /></AdminRoute>,
+        element: (
+          <AdminRoute>
+            <DashboardLayout />
+          </AdminRoute>
+        ),
         children: [
           {
             index: true,
@@ -31,32 +36,42 @@ const Router = createBrowserRouter([
           },
           {
             path: "requests",
-            element: <Requests/>
-          }
-    
+            element: <Requests />,
+          },
         ],
       },
       {
         path: "/dashboard/user",
-        element: <UserRoute><UserDashboard/></UserRoute>,
-        
+        element: (
+          <UserRoute>
+            <UserDashboard />
+          </UserRoute>
+        ),
+      },
+      {
+        path: "/history",
+        element: (
+          <UserRoute>
+            <History />
+          </UserRoute>
+        ),
       },
       {
         path: "/profile",
-        element: <PrivateRoute><Profile/></PrivateRoute>,
-        
+        element: (
+          <PrivateRoute>
+            <Profile />
+          </PrivateRoute>
+        ),
       },
       {
         path: "/about",
-        element: <About/>,
-        
+        element: <About />,
       },
     ],
   },
   { path: "/login", element: <Login /> },
   { path: "/signup", element: <SignUp /> },
-  
- 
 ]);
 
 export default Router;

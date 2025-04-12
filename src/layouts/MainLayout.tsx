@@ -4,6 +4,7 @@ import Navbar from "../components/Navbar";
 import useRole from "../hooks/useRole";
 
 import { Outlet } from "react-router-dom";
+import Footer from "../components/footer";
 
 const MainLayout = () => {
   const [type, isLoading] = useRole();
@@ -20,12 +21,14 @@ const MainLayout = () => {
         }}
       />
       <nav className="w-full fixed backdrop-blur-md backdrop-saturate-150 bg-white/30 text-base shadow-md top-0 z-50">
-        <Navbar></Navbar>
+        <Navbar />
       </nav>
       <main className="pt-16">
         <Outlet />
       </main>
-      <footer></footer>
+      <footer>
+        <Footer />
+      </footer>
     </div>
   );
 };
