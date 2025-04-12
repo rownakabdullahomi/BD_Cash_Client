@@ -11,6 +11,7 @@ import {
 } from "firebase/auth";
 import { createContext, useContext, useEffect, useState, ReactNode } from "react";
 import { auth } from "../firebase/firebase.config";
+import useAxiosPublic from "../hooks/useAxiosPublic";
 
 interface ProfileUpdateData {
   displayName?: string | null;
@@ -38,6 +39,7 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
   const googleProvider = new GoogleAuthProvider();
+  const axiosPublic = useAxiosPublic();
 
   const userRegister = (email: string, password: string) => {
       setLoading(true);
@@ -75,12 +77,33 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
   };
 
   useEffect(() => {
-      const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-          setUser(currentUser);
-          setLoading(false);
-      });
-      return () => unsubscribe();
-  }, []);
+    const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
+      if (currentUser?.email) {
+        setUser(currentUser);
+        console.log("CurrentUser-->", currentUser);
+        // Fetch the token from the server
+        const { data } = await axiosPublic.post(
+          `${import.meta.env.VITE_API_URL}/jwt`,
+          { email: currentUser?.email },
+          { withCredentials: true }
+        );
+
+        console.log("Token:", data);
+      }
+      else{
+        setUser(currentUser);
+        const { data } = await axiosPublic.get(
+          `${import.meta.env.VITE_API_URL}/logout`,
+          { withCredentials: true }
+        )
+        console.log(data);
+      }
+      setLoading(false);
+    });
+    return () => {
+      unsubscribe();
+    };
+  }, [axiosPublic]);
 
   const userInfo: AuthContextType = {
       user,
