@@ -4,11 +4,12 @@ import styled from "styled-components";
 import Comma from "../assets/comma.png";
 
 const TestimonialContainer = styled.div`
-  max-width: 600px;
+  max-width: 100%;
   min-height: 230px;
   margin: 2rem auto;
-  font-family: "Georgia", serif;
+  font-weight: bold;
   padding: 0 1rem;
+
 
   .carousel carousel-slider{
   min-height: 100%;
@@ -21,6 +22,15 @@ const TestimonialContainer = styled.div`
   }
   
   /* Custom styles for carousel dots */
+  .carousel .control-dots {
+    position: absolute;
+    bottom: 0;
+    margin: -6px 0;
+    padding: 0px;
+    text-align: center;
+    width: 100%;
+    z-index: 1;
+}
 
 `;
 // const PublicationInfo = styled.p`
@@ -41,7 +51,6 @@ const TestimonialContent = styled.div`
 const TestimonialText = styled.p`
   font-size: 1.1rem;
   line-height: 1.8;
-  color: #333;
   margin-bottom: 1.5rem;
   text-align: center;
   font-style: italic;
