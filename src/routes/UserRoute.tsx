@@ -10,7 +10,7 @@ interface PrivateRouteProps {
 const UserRoute = ({ children }: PrivateRouteProps) => {
     const [type, isLoading] = useRole()
   
-    if (isLoading) return <p>Loading...</p>
+    if (isLoading || !type) return <p>Loading...</p>
     if (type === 'user') return children
     return <Navigate to='/' replace />
   }

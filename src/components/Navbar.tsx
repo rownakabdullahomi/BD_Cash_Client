@@ -69,7 +69,7 @@ const Navbar = () => {
         <>
           <li>
             <NavLink
-              to={type === "user" ? "/dashboard/user" : "/dashboard/admin"}
+              to={type === "admin" ? "/dashboard/admin" : "/dashboard/user"}
             >
               Dashboard
             </NavLink>

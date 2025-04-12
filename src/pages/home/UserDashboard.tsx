@@ -13,7 +13,7 @@ const UserDashboard = () => {
   const { user } = useAuthContext();
   console.log(user?.email);
   const [type, isLoading] = useRole();
-  console.log("Role status:", { type, isLoading });
+
 
   const axiosSecure = useAxiosSecure();
 
@@ -245,6 +245,9 @@ const UserDashboard = () => {
               </form>
             </div>
           </div>
+        </div>
+        <div className="flex justify-center">
+          <div className="mt-14 btn btn-outline btn-primary">View History</div>
         </div>
       </div>
     </div>
