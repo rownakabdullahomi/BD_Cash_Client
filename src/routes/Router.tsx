@@ -6,6 +6,7 @@ import SignUp from "../pages/signup/SignUp";
 import DashboardLayout from "../layouts/DashboardLayout";
 import Requests from "../pages/Admin/Requests";
 import UserDashboard from "../pages/home/UserDashboard";
+import PrivateRoute from "./PrivateRoute";
 
 const Router = createBrowserRouter([
   {
@@ -18,7 +19,7 @@ const Router = createBrowserRouter([
       },
       {
         path: "/dashboard/admin",
-        element: <DashboardLayout />,
+        element: <PrivateRoute><DashboardLayout /></PrivateRoute>,
         children: [
           {
             index: true,
@@ -29,7 +30,7 @@ const Router = createBrowserRouter([
       },
       {
         path: "/dashboard/user",
-        element: <UserDashboard />,
+        element: <PrivateRoute><UserDashboard /></PrivateRoute>,
         
       },
     ],

@@ -8,6 +8,8 @@ interface Transaction {
   status: "pending" | "approved" | "rejected";
   transactionType: string;
   currentBalance: number;
+  totalAdded: number;
+  totalPaid: number;
   createdBy: string;
   createdAt: string;
 }
@@ -51,12 +53,16 @@ const Requests = () => {
     const requestAmount = res.data.requestAmount;
     const transactionType = res.data.transactionType;
     const currentBalance = res.data.currentBalance;
+    const totalAdded = res.data.totalAdded;
+    const totalPaid = res.data.totalPaid;
     const status = "approved";
 
     const data = {
         requestAmount,
         transactionType,
         currentBalance,
+        totalAdded,
+        totalPaid,
         status
     }
 

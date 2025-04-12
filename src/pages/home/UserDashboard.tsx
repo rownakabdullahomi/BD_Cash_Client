@@ -1,42 +1,77 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { FormEvent, useState } from "react";
+import { FormEvent, useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 import useRole from "../../hooks/useRole";
 import { useAuthContext } from "../../providers/AuthProvider";
+import { useQuery } from "@tanstack/react-query";
 
 const UserDashboard = () => {
-  const [amount, setAmount] = useState<string>("");
+  const [totalAddedBalance, setTotalAddedBalance] = useState<number>(0);
+  const [totalPaidBalance, setTotalPaidBalance] = useState<number>(0);
   const [balance, setBalance] = useState<number>(0); // Example balance
-  const {user}  = useAuthContext();
+  const { user } = useAuthContext();
   console.log(user?.email);
   const [type, isLoading] = useRole();
   console.log(type);
 
   const axiosSecure = useAxiosSecure();
 
+  const {
+    data: transaction,
+    isLoading: isLoadingTransaction,
+    refetch,
+  } = useQuery({
+    queryKey: ["transaction"],
+    queryFn: async () => {
+      const { data } = await axiosSecure(`/latest/transaction/${user?.email}`);
+      return data;
+    },
+    enabled: !!user?.email,
+  });
+
+  // Use useEffect to handle side effects when data changes
+  useEffect(() => {
+    if (transaction) {
+      console.log(transaction);
+      setTotalAddedBalance(transaction.totalAdded);
+      setTotalPaidBalance(transaction.totalPaid);
+      setBalance(transaction.currentBalance);
+    }
+  }, [transaction]);
+
   const handleAddMoney = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const form = e.currentTarget; 
-  
+    const form = e.currentTarget;
+
     try {
       const formData = new FormData(form);
       const requestAmount = formData.get("addAmount") as string;
       const createdBy = user?.email;
       const currentBalance = balance;
-      
-      const addMoneyData = { 
+      const totalAdded = totalAddedBalance;
+      const totalPaid = totalPaidBalance;
+
+      // Validation checks
+      if (parseFloat(requestAmount) <= 0) {
+        toast.error("Add money amount must be greater than 0");
+        return;
+      }
+
+      const addMoneyData = {
         requestAmount,
         status: "pending",
         transactionType: "Add Money",
         currentBalance,
+        totalAdded,
+        totalPaid,
         createdBy,
-        createdAt: new Date().toISOString()
+        createdAt: new Date().toISOString(),
       };
-  
+
       await axiosSecure.post("/add-money-request", addMoneyData);
       toast.success("Add Money request sent successfully!");
-      
+
       form.reset();
     } catch (error: any) {
       toast.error("Failed to add money", error.message);
@@ -44,32 +79,56 @@ const UserDashboard = () => {
   };
   const handlePayMoney = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const form = e.currentTarget; 
-  
+    const form = e.currentTarget;
+
     try {
       const formData = new FormData(form);
       const requestAmount = formData.get("payAmount") as string;
       const createdBy = user?.email;
       const currentBalance = balance;
-      
-      const payMoneyData = { 
+      const totalAdded = totalAddedBalance;
+      const totalPaid = totalPaidBalance;
+
+      // Validation checks
+      if (parseFloat(requestAmount) <= 0) {
+        toast.error("Payment amount must be greater than 0");
+        return;
+      }
+
+      if (parseFloat(requestAmount) > currentBalance) {
+        toast.error("Insufficient balance for this payment");
+        return;
+      }
+
+      const payMoneyData = {
         requestAmount,
         status: "pending",
         transactionType: "Pay Money",
         currentBalance,
+        totalAdded,
+        totalPaid,
         createdBy,
-        createdAt: new Date().toISOString()
+        createdAt: new Date().toISOString(),
       };
-  
+
       await axiosSecure.post("/pay-money-request", payMoneyData);
       toast.success("Pay Money request sent successfully!");
-      
+
       form.reset();
     } catch (error: any) {
       toast.error("Failed to pay money", error.message);
     }
   };
 
+  if (isLoading || isLoadingTransaction || !transaction) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-white">
+        <span className="text-lg font-medium text-gray-600 animate-pulse">
+          Loading...
+        </span>
+      </div>
+    );
+  }
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 p-4 md:p-8">
       <div className="max-w-6xl mx-auto">
@@ -89,11 +148,15 @@ const UserDashboard = () => {
               <div className="mt-6 grid grid-cols-2 gap-4">
                 <div className="bg-blue-50 p-4 rounded-lg">
                   <p className="text-gray-500 text-sm">Total Added</p>
-                  <p className="font-medium text-blue-600">BDT 3,250.00</p>
+                  <p className="font-medium text-blue-600">
+                    BDT {totalAddedBalance}
+                  </p>
                 </div>
                 <div className="bg-blue-50 p-4 rounded-lg">
                   <p className="text-gray-500 text-sm">Total Expenses</p>
-                  <p className="font-medium text-red-500">BDT 749.25</p>
+                  <p className="font-medium text-red-500">
+                    BDT {totalPaidBalance}
+                  </p>
                 </div>
               </div>
             </div>
