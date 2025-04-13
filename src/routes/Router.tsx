@@ -13,6 +13,8 @@ import PrivateRoute from "./PrivateRoute";
 import About from "../pages/About";
 import History from "../pages/History";
 import Error404 from "../pages/Error404";
+import Contact from "../pages/Contact";
+import Blogs from "../pages/Blogs";
 
 const Router = createBrowserRouter([
   {
@@ -69,6 +71,14 @@ const Router = createBrowserRouter([
       {
         path: "/about",
         element: <About />,
+      },
+      {
+        path: "/contact",
+        element: <Contact />,
+      },
+      {
+        path: "/blogs",
+        element: <Blogs />,
       },
     ],
   },

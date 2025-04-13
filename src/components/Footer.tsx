@@ -25,7 +25,7 @@ const Footer = () => {
               </div>
             </Link>
             <p className="text-gray-400 text-sm text-center md:text-left">
-              Secure payment solutions for Bangladesh
+              A global secure payment solutions
             </p>
              {/* Quick Links - Made more compact */}
           {/* <div className="flex flex-col items-center">
