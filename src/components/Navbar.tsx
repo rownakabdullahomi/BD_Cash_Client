@@ -56,14 +56,14 @@ const Navbar = () => {
     userLogout()
       .then(() => {
         toast.success("Logout Successful!");
-        navigate('/');
+        navigate("/");
       })
       .catch((error: Error) => {
         toast.error("Error logging out! " + error.message);
       });
   };
 
-  if(isLoading) return <Loading/>
+  if (isLoading) return <Loading />;
 
   const links = (
     <>
@@ -92,6 +92,11 @@ const Navbar = () => {
       </li>
       <li>
         <NavLink to="/blogs">Blogs</NavLink>
+      </li>
+      <li>
+        {
+          user?.email ? <div onClick={handleLogout}>Logout</div> : <Link to={"/login"}>Login</Link>
+        }
       </li>
     </>
   );

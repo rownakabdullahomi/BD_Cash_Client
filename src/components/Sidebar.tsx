@@ -1,5 +1,5 @@
 import { BiHelpCircle, BiLogOut } from "react-icons/bi";
-import { FaTimes, FaUser } from "react-icons/fa";
+import { FaTimes, FaUser, FaUsers } from "react-icons/fa";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import { useAuthContext } from "../providers/AuthProvider";
 import toast from "react-hot-toast";
@@ -19,6 +19,11 @@ const Sidebar: React.FC<SidebarProps> = ({ toggleSidebar }) => {
       name: "Transaction Requests",
       icon: <BiHelpCircle />,
       path: "requests",
+    },
+    {
+      name: "All Users",
+      icon: <FaUsers />,
+      path: "users",
     },
 
   ];

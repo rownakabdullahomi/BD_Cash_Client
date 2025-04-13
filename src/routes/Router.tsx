@@ -15,6 +15,7 @@ import History from "../pages/History";
 import Error404 from "../pages/Error404";
 import Contact from "../pages/Contact";
 import Blogs from "../pages/Blogs";
+import Users from "../pages/Admin/Users";
 
 const Router = createBrowserRouter([
   {
@@ -41,6 +42,10 @@ const Router = createBrowserRouter([
           {
             path: "requests",
             element: <Requests />,
+          },
+          {
+            path: "users",
+            element: <Users />,
           },
         ],
       },
