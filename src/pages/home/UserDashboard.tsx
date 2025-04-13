@@ -231,9 +231,11 @@ const UserDashboard = () => {
             </div>
           </div>
         </div>
-        <Link to={"/history"} className="flex justify-center">
-          <div className="mt-14 btn btn-outline btn-primary">View History</div>
+        <div className="flex justify-center mt-14 ">
+        <Link to={"/history"} >
+          <div className="btn btn-outline btn-primary">View History</div>
         </Link>
+        </div>
       </div>
     </div>
   );

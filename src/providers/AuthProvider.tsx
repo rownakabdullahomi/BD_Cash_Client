@@ -78,27 +78,22 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
-      if (currentUser?.email) {
         setUser(currentUser);
         console.log("CurrentUser-->", currentUser);
-        // Fetch the token from the server
-        const { data } = await axiosPublic.post(
-          `${import.meta.env.VITE_API_URL}/jwt`,
-          { email: currentUser?.email },
-          { withCredentials: true }
-        );
-
-        console.log("Token:", data);
-      }
-      else{
-        setUser(currentUser);
-        const { data } = await axiosPublic.get(
-          `${import.meta.env.VITE_API_URL}/logout`,
-          { withCredentials: true }
-        )
-        console.log(data);
-      }
-      setLoading(false);
+        if (currentUser?.email) {
+          // get token and store at local storage of client
+          const userInfo = { email: currentUser.email };
+          const res = await axiosPublic.post("/jwt", userInfo);
+          // console.log(res);
+          if (res.data.token) {
+            localStorage.setItem("access-token", res.data.token);
+            setLoading(false);
+          }
+        } else {
+          // remove token from local storage
+          localStorage.removeItem("access-token");
+          setLoading(false);
+        }
     });
     return () => {
       unsubscribe();
