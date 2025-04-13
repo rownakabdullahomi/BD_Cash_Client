@@ -1,6 +1,6 @@
 import { BiHelpCircle, BiLogOut } from "react-icons/bi";
-import { FaTimes, FaUser, FaUsers } from "react-icons/fa";
-import { Link, NavLink, useNavigate } from "react-router-dom";
+import { FaTimes, FaUsers } from "react-icons/fa";
+import { NavLink, useNavigate } from "react-router-dom";
 import { useAuthContext } from "../providers/AuthProvider";
 import toast from "react-hot-toast";
 

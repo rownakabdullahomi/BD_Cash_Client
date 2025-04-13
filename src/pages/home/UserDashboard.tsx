@@ -8,6 +8,7 @@ import { useQuery } from "@tanstack/react-query";
 import { Link } from "react-router-dom";
 import Loading from "../Loading";
 
+
 const UserDashboard = () => {
   const [totalAddedBalance, setTotalAddedBalance] = useState<number>(0);
   const [totalPaidBalance, setTotalPaidBalance] = useState<number>(0);
@@ -17,10 +18,7 @@ const UserDashboard = () => {
 
   const axiosSecure = useAxiosSecure();
 
-  const {
-    data: transaction,
-    isLoading: isLoadingTransaction,
-  } = useQuery({
+  const { data: transaction, isLoading: isLoadingTransaction } = useQuery({
     queryKey: ["transaction"],
     queryFn: async () => {
       const { data } = await axiosSecure(`/latest/transaction/${user?.email}`);
@@ -125,7 +123,7 @@ const UserDashboard = () => {
     }
   };
 
-  if (isLoading || isLoadingTransaction) {
+  if (isLoading || isLoadingTransaction || !type) {
     return <Loading />;
   }
   return (

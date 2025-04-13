@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { FiUsers, FiTarget, FiAward, FiGlobe } from "react-icons/fi";
 
+
 const About = () => {
   const teamMembers = [
     {

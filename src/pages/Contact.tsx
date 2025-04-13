@@ -1,34 +1,42 @@
-import { useState } from 'react';
-import { FaPaperPlane, FaPhone, FaMapMarkerAlt, FaEnvelope, FaClock } from 'react-icons/fa';
-import { motion } from 'framer-motion';
-import toast from 'react-hot-toast';
+import { useState } from "react";
+import {
+  FaPaperPlane,
+  FaPhone,
+  FaMapMarkerAlt,
+  FaEnvelope,
+  FaClock,
+} from "react-icons/fa";
+import { motion } from "framer-motion";
+import toast from "react-hot-toast";
 
 
 const Contact = () => {
   const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    message: ''
+    name: "",
+    email: "",
+    message: "",
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
     const { name, value } = e.target;
-    setFormData(prev => ({
+    setFormData((prev) => ({
       ...prev,
-      [name]: value
+      [name]: value,
     }));
   };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
-    
+
     // Simulate form submission
     setTimeout(() => {
-      console.log('Form submitted:', formData);
-      toast.success('Message sent successfully!');
-      setFormData({ name: '', email: '', message: '' });
+      console.log("Form submitted:", formData);
+      toast.success("Message sent successfully!");
+      setFormData({ name: "", email: "", message: "" });
       setIsSubmitting(false);
     }, 1500);
   };
@@ -54,7 +62,9 @@ const Contact = () => {
             whileHover={{ y: -5 }}
             className="bg-white rounded-xl shadow-xl p-8"
           >
-            <h2 className="text-2xl font-semibold text-gray-800 mb-6">Send us a message</h2>
+            <h2 className="text-2xl font-semibold text-gray-800 mb-6">
+              Send us a message
+            </h2>
             <form onSubmit={handleSubmit}>
               <div className="mb-6">
                 <label htmlFor="name" className="block text-gray-700 mb-2">
@@ -106,12 +116,12 @@ const Contact = () => {
                 disabled={isSubmitting}
                 className={`w-full flex items-center justify-center px-6 py-3 rounded-lg text-white font-medium transition-all ${
                   isSubmitting
-                    ? 'bg-blue-400 cursor-not-allowed'
-                    : 'bg-blue-600 hover:bg-blue-700 hover:shadow-md'
+                    ? "bg-blue-400 cursor-not-allowed"
+                    : "bg-blue-600 hover:bg-blue-700 hover:shadow-md"
                 }`}
               >
                 {isSubmitting ? (
-                  'Sending...'
+                  "Sending..."
                 ) : (
                   <>
                     <FaPaperPlane className="mr-2" />
@@ -128,16 +138,24 @@ const Contact = () => {
               whileHover={{ scale: 1.02 }}
               className="bg-white rounded-xl shadow-xl p-8"
             >
-              <h2 className="text-2xl font-semibold text-gray-800 mb-6">Contact Information</h2>
-              
+              <h2 className="text-2xl font-semibold text-gray-800 mb-6">
+                Contact Information
+              </h2>
+
               <div className="space-y-6">
                 <div className="flex items-start">
                   <div className="bg-blue-100 p-3 rounded-full mr-4">
                     <FaMapMarkerAlt className="text-blue-600 text-xl" />
                   </div>
                   <div>
-                    <h3 className="text-lg font-medium text-gray-800">Our Location</h3>
-                    <p className="text-gray-600">123 Business Avenue, Suite 456<br />Mirpur - 1, Dhaka - 1216</p>
+                    <h3 className="text-lg font-medium text-gray-800">
+                      Our Location
+                    </h3>
+                    <p className="text-gray-600">
+                      123 Business Avenue, Suite 456
+                      <br />
+                      Mirpur - 1, Dhaka - 1216
+                    </p>
                   </div>
                 </div>
 
@@ -146,7 +164,9 @@ const Contact = () => {
                     <FaPhone className="text-blue-600 text-xl" />
                   </div>
                   <div>
-                    <h3 className="text-lg font-medium text-gray-800">Phone Number</h3>
+                    <h3 className="text-lg font-medium text-gray-800">
+                      Phone Number
+                    </h3>
                     <p className="text-gray-600">+880 (555) 123-4567</p>
                     <p className="text-gray-600 mt-1">Mon-Fri: 9am-5pm</p>
                   </div>
@@ -157,9 +177,13 @@ const Contact = () => {
                     <FaEnvelope className="text-blue-600 text-xl" />
                   </div>
                   <div>
-                    <h3 className="text-lg font-medium text-gray-800">Email Address</h3>
+                    <h3 className="text-lg font-medium text-gray-800">
+                      Email Address
+                    </h3>
                     <p className="text-gray-600">contact@bd_cash.com</p>
-                    <p className="text-gray-600 mt-1">Support: support@bd_cash.com</p>
+                    <p className="text-gray-600 mt-1">
+                      Support: support@bd_cash.com
+                    </p>
                   </div>
                 </div>
 
@@ -168,8 +192,12 @@ const Contact = () => {
                     <FaClock className="text-blue-600 text-xl" />
                   </div>
                   <div>
-                    <h3 className="text-lg font-medium text-gray-800">Working Hours</h3>
-                    <p className="text-gray-600">Monday - Friday: 9:00 - 18:00</p>
+                    <h3 className="text-lg font-medium text-gray-800">
+                      Working Hours
+                    </h3>
+                    <p className="text-gray-600">
+                      Monday - Friday: 9:00 - 18:00
+                    </p>
                     <p className="text-gray-600">Saturday: 10:00 - 15:00</p>
                   </div>
                 </div>

@@ -3,6 +3,7 @@ import { FaBars } from "react-icons/fa";
 import { Outlet } from "react-router-dom";
 import Sidebar from "../components/Sidebar";
 
+
 const DashboardLayout = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 

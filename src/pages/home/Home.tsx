@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import CountUp from "react-countup";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import {
@@ -69,6 +69,7 @@ const Home = () => {
 
   return (
     <div className="bg-gradient-to-b from-base-100 to-base-300">
+      
       {/* Hero Section */}
       <div className="relative overflow-hidden">
         <div className="max-w-7xl mx-auto">

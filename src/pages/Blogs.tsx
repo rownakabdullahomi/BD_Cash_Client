@@ -1,6 +1,13 @@
-import { useState } from 'react';
-import { FaSearch, FaCalendarAlt, FaUser, FaTags, FaArrowRight } from 'react-icons/fa';
-import { motion } from 'framer-motion';
+import { useState } from "react";
+import {
+  FaSearch,
+  FaCalendarAlt,
+  FaUser,
+  FaTags,
+  FaArrowRight,
+} from "react-icons/fa";
+import { motion } from "framer-motion";
+
 
 // Sample blog data
 // const blogPosts = [
@@ -63,72 +70,90 @@ import { motion } from 'framer-motion';
 // const categories = ['All', 'Development', 'Design', 'Performance', 'Accessibility'];
 
 const blogPosts = [
-    {
-      id: 1,
-      title: 'Secure Online Transactions in 2024',
-      excerpt: 'Learn the latest security measures to protect your financial transactions online.',
-      date: 'May 15, 2024',
-      author: 'Sarah Johnson',
-      category: 'Security',
-      image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80',
-    },
-    {
-      id: 2,
-      title: 'The Future of Digital Payments',
-      excerpt: 'Exploring emerging trends in digital wallets and contactless payment systems.',
-      date: 'June 2, 2024',
-      author: 'Michael Chen',
-      category: 'Payments',
-      image: 'https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80',
-    },
-    {
-      id: 3,
-      title: 'Optimizing Transaction Speeds',
-      excerpt: 'How we reduced payment processing times by 40% with new technologies.',
-      date: 'June 10, 2024',
-      author: 'Emma Davis',
-      category: 'Performance',
-      image: 'https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80',
-    },
-    {
-      id: 4,
-      title: 'Mobile Payment Best Practices',
-      excerpt: 'Designing seamless mobile payment experiences that users love.',
-      date: 'June 18, 2024',
-      author: 'David Wilson',
-      category: 'Mobile',
-      image: 'https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80',
-    },
-    {
-      id: 5,
-      title: 'Fraud Prevention Strategies',
-      excerpt: 'How we detect and prevent fraudulent transactions in real-time.',
-      date: 'June 25, 2024',
-      author: 'Lisa Thompson',
-      category: 'Security',
-      image: 'https://images.unsplash.com/photo-1563986768609-322da13575f3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80',
-    },
-    {
-      id: 6,
-      title: 'Cross-Border Payment Solutions',
-      excerpt: 'Making international money transfers faster and more affordable.',
-      date: 'July 3, 2024',
-      author: 'James Rodriguez',
-      category: 'International',
-      image: 'https://images.unsplash.com/photo-1534957753291-64d667ce2927?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80',
-    },
-  ];
-  
-  const categories = ['All', 'Security', 'Payments', 'Performance', 'Mobile', 'International'];
+  {
+    id: 1,
+    title: "Secure Online Transactions in 2024",
+    excerpt:
+      "Learn the latest security measures to protect your financial transactions online.",
+    date: "May 15, 2024",
+    author: "Sarah Johnson",
+    category: "Security",
+    image:
+      "https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80",
+  },
+  {
+    id: 2,
+    title: "The Future of Digital Payments",
+    excerpt:
+      "Exploring emerging trends in digital wallets and contactless payment systems.",
+    date: "June 2, 2024",
+    author: "Michael Chen",
+    category: "Payments",
+    image:
+      "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80",
+  },
+  {
+    id: 3,
+    title: "Optimizing Transaction Speeds",
+    excerpt:
+      "How we reduced payment processing times by 40% with new technologies.",
+    date: "June 10, 2024",
+    author: "Emma Davis",
+    category: "Performance",
+    image:
+      "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80",
+  },
+  {
+    id: 4,
+    title: "Mobile Payment Best Practices",
+    excerpt: "Designing seamless mobile payment experiences that users love.",
+    date: "June 18, 2024",
+    author: "David Wilson",
+    category: "Mobile",
+    image:
+      "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80",
+  },
+  {
+    id: 5,
+    title: "Fraud Prevention Strategies",
+    excerpt: "How we detect and prevent fraudulent transactions in real-time.",
+    date: "June 25, 2024",
+    author: "Lisa Thompson",
+    category: "Security",
+    image:
+      "https://images.unsplash.com/photo-1563986768609-322da13575f3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80",
+  },
+  {
+    id: 6,
+    title: "Cross-Border Payment Solutions",
+    excerpt: "Making international money transfers faster and more affordable.",
+    date: "July 3, 2024",
+    author: "James Rodriguez",
+    category: "International",
+    image:
+      "https://images.unsplash.com/photo-1534957753291-64d667ce2927?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80",
+  },
+];
+
+const categories = [
+  "All",
+  "Security",
+  "Payments",
+  "Performance",
+  "Mobile",
+  "International",
+];
 
 const Blogs = () => {
-  const [searchTerm, setSearchTerm] = useState('');
-  const [selectedCategory, setSelectedCategory] = useState('All');
+  const [searchTerm, setSearchTerm] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState("All");
 
-  const filteredPosts = blogPosts.filter(post => {
-    const matchesSearch = post.title.toLowerCase().includes(searchTerm.toLowerCase()) || 
-                         post.excerpt.toLowerCase().includes(searchTerm.toLowerCase());
-    const matchesCategory = selectedCategory === 'All' || post.category === selectedCategory;
+  const filteredPosts = blogPosts.filter((post) => {
+    const matchesSearch =
+      post.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      post.excerpt.toLowerCase().includes(searchTerm.toLowerCase());
+    const matchesCategory =
+      selectedCategory === "All" || post.category === selectedCategory;
     return matchesSearch && matchesCategory;
   });
 
@@ -136,7 +161,7 @@ const Blogs = () => {
     <div className="min-h-screen py-12 px-4 sm:px-6 lg:px-8 ">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
@@ -173,8 +198,8 @@ const Blogs = () => {
                   onClick={() => setSelectedCategory(category)}
                   className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
                     selectedCategory === category
-                      ? 'bg-blue-600 text-white'
-                      : 'bg-white text-gray-700 hover:bg-gray-100'
+                      ? "bg-blue-600 text-white"
+                      : "bg-white text-gray-700 hover:bg-gray-100"
                   }`}
                 >
                   {category}
@@ -228,7 +253,9 @@ const Blogs = () => {
           </div>
         ) : (
           <div className="text-center py-12">
-            <h3 className="text-xl font-medium text-gray-700">No articles found</h3>
+            <h3 className="text-xl font-medium text-gray-700">
+              No articles found
+            </h3>
             <p className="text-gray-500 mt-2">
               Try adjusting your search or filter criteria
             </p>
@@ -236,7 +263,7 @@ const Blogs = () => {
         )}
 
         {/* Newsletter Subscription */}
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           transition={{ duration: 0.5 }}
@@ -244,9 +271,12 @@ const Blogs = () => {
           className="mt-16 bg-base-300 rounded-xl p-8"
         >
           <div className="max-w-3xl mx-auto text-center">
-            <h2 className="text-2xl font-bold mb-4">Subscribe to our newsletter</h2>
+            <h2 className="text-2xl font-bold mb-4">
+              Subscribe to our newsletter
+            </h2>
             <p className="mb-6 opacity-90">
-              Get the latest articles and news delivered to your inbox every week.
+              Get the latest articles and news delivered to your inbox every
+              week.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
               <input
