@@ -1,6 +1,6 @@
 import { BiHelpCircle, BiLogOut } from "react-icons/bi";
 import { FaTimes, FaUser } from "react-icons/fa";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import { useAuthContext } from "../providers/AuthProvider";
 import toast from "react-hot-toast";
 
@@ -11,6 +11,7 @@ interface SidebarProps {
 const Sidebar: React.FC<SidebarProps> = ({ toggleSidebar }) => {
 
   const { userLogout } = useAuthContext();
+  const navigate = useNavigate();
 
   // Define menus based on userType
   const menuItems = [
@@ -27,6 +28,7 @@ const Sidebar: React.FC<SidebarProps> = ({ toggleSidebar }) => {
     userLogout()
       .then(() => {
         toast.success("Logout Successful!");
+        navigate('/');
       })
       .catch((error: Error) => {
         toast.error("Error logging out! " + error.message);

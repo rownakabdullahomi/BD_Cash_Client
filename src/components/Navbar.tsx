@@ -1,4 +1,4 @@
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import userImage from "../assets/user.jpg";
 import { useAuthContext } from "../providers/AuthProvider";
 import { useEffect, useRef, useState } from "react";
@@ -10,6 +10,7 @@ const Navbar = () => {
   const [theme, setTheme] = useState(() => {
     return localStorage.getItem("theme") || "light";
   });
+  const navigate = useNavigate();
   const [type, isLoading] = useRole();
   const { user, userLogout } = useAuthContext();
   const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -54,6 +55,7 @@ const Navbar = () => {
     userLogout()
       .then(() => {
         toast.success("Logout Successful!");
+        navigate('/');
       })
       .catch((error: Error) => {
         toast.error("Error logging out! " + error.message);

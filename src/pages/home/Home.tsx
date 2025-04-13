@@ -14,7 +14,7 @@ import useRole from "../../hooks/useRole";
 import Testimonial from "../../components/Testimonials";
 import { useEffect, useState } from "react";
 import useAxiosPublic from "../../hooks/useAxiosPublic";
-import VisibilitySensor from "react-visibility-sensor";
+
 
 const Home = () => {
   const navigate = useNavigate();
@@ -29,17 +29,17 @@ const Home = () => {
   });
 
   // Fetch platform stats
-  useEffect(() => {
-    const fetchStats = async () => {
-      try {
-        const { data } = await axiosPublic.get("/platform-stats");
-        setStats(data);
-      } catch (error) {
-        console.error("Failed to fetch stats:", error);
-      }
-    };
-    fetchStats();
-  }, [axiosPublic]);
+  // useEffect(() => {
+  //   const fetchStats = async () => {
+  //     try {
+  //       const { data } = await axiosPublic.get("/platform-stats");
+  //       setStats(data);
+  //     } catch (error) {
+  //       console.error("Failed to fetch stats:", error);
+  //     }
+  //   };
+  //   fetchStats();
+  // }, [axiosPublic]);
 
   // Features data
   const features = [
