@@ -12,12 +12,12 @@ const Footer = () => {
   ];
 
   return (
-    <footer className="px-6 md:px-4 bg-gradient-to-br from-gray-900 to-gray-800 text-white  w-full">
+    <footer className="px-6 md:px-8 bg-gradient-to-br from-gray-900 to-gray-800 text-white  w-full">
       <div className="  flex flex-col justify-between py-6">
         {/* Main Content */}
         <div className="flex justify-between">
           {/* Brand Column */}
-          <div className="flex flex-col items-center md:items-start">
+          <div className="flex flex-col  md:items-start">
             <Link to="/" className="mb-2">
               <div className="flex items-center">
                 <span className="text-2xl font-bold text-green-500">BD_</span>
