@@ -48,7 +48,6 @@ const Requests = () => {
     
 
     const res = await axiosSecure(`/transaction/${transactionId}`);
-    console.log(res.data);
 
     const requestAmount = res.data.requestAmount;
     const transactionType = res.data.transactionType;

@@ -1,12 +1,17 @@
 import { BiHelpCircle, BiLogOut } from "react-icons/bi";
 import { FaTimes, FaUser } from "react-icons/fa";
 import { Link, NavLink } from "react-router-dom";
+import { useAuthContext } from "../providers/AuthProvider";
+import toast from "react-hot-toast";
 
 interface SidebarProps {
   toggleSidebar: () => void;
 }
 
 const Sidebar: React.FC<SidebarProps> = ({ toggleSidebar }) => {
+
+  const { userLogout } = useAuthContext();
+
   // Define menus based on userType
   const menuItems = [
     {
@@ -15,8 +20,18 @@ const Sidebar: React.FC<SidebarProps> = ({ toggleSidebar }) => {
       path: "requests",
     },
 
-    { name: "Profile", icon: <FaUser />, path: "profile" },
   ];
+
+
+  const handleLogout = () => {
+    userLogout()
+      .then(() => {
+        toast.success("Logout Successful!");
+      })
+      .catch((error: Error) => {
+        toast.error("Error logging out! " + error.message);
+      });
+  };
   return (
     <aside className="w-64  bg-base-300 text-black font-Gilda h-full shadow-lg flex flex-col">
       {/* Header Section */}
@@ -57,7 +72,7 @@ const Sidebar: React.FC<SidebarProps> = ({ toggleSidebar }) => {
         {/* Back to Home link */}
         <ul className="">
           <li
-            // onClick={userLogout}
+            onClick={handleLogout}
             className="cursor-pointer flex items-center px-4 rounded-md transition"
           >
             <span className="text-lg mr-3">

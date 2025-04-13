@@ -10,7 +10,7 @@ interface PrivateRouteProps {
 const AdminRoute = ({ children }: PrivateRouteProps) => {
     const [type, isLoading] = useRole()
   
-    if (isLoading) return <p>Loading...</p>
+    if (isLoading || !type) return <p>Loading...</p>
     if (type === 'admin') return children
     return <Navigate to='/' replace />
   }

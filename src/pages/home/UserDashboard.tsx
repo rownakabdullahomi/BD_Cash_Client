@@ -12,7 +12,6 @@ const UserDashboard = () => {
   const [totalPaidBalance, setTotalPaidBalance] = useState<number>(0);
   const [balance, setBalance] = useState<number>(0); // Example balance
   const { user } = useAuthContext();
-  console.log(user?.email);
   const [type, isLoading] = useRole();
 
 
