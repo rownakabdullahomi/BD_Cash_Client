@@ -4,6 +4,7 @@ import useAxiosSecure from "../hooks/useAxiosSecure";
 import { format } from "date-fns";
 import { FaArrowUp, FaArrowDown, FaHistory, FaArrowLeft } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
+import Loading from "./Loading";
 
 const History = () => {
   const { user } = useAuthContext();
@@ -13,7 +14,6 @@ const History = () => {
   const {
     data: transactions = [],
     isLoading,
-    refetch,
   } = useQuery({
     queryKey: ["transaction"],
     queryFn: async () => {
@@ -50,9 +50,7 @@ const History = () => {
 
   if (isLoading) {
     return (
-      <div className="flex justify-center items-center h-64">
-        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-500"></div>
-      </div>
+     <Loading/>
     );
   }
 

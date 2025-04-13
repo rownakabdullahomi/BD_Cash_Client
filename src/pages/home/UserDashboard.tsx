@@ -6,6 +6,7 @@ import useRole from "../../hooks/useRole";
 import { useAuthContext } from "../../providers/AuthProvider";
 import { useQuery } from "@tanstack/react-query";
 import { Link } from "react-router-dom";
+import Loading from "../Loading";
 
 const UserDashboard = () => {
   const [totalAddedBalance, setTotalAddedBalance] = useState<number>(0);
@@ -14,13 +15,11 @@ const UserDashboard = () => {
   const { user } = useAuthContext();
   const [type, isLoading] = useRole();
 
-
   const axiosSecure = useAxiosSecure();
 
   const {
     data: transaction,
     isLoading: isLoadingTransaction,
-    refetch,
   } = useQuery({
     queryKey: ["transaction"],
     queryFn: async () => {
@@ -127,13 +126,7 @@ const UserDashboard = () => {
   };
 
   if (isLoading || isLoadingTransaction) {
-    return (
-      <div className="m-h-screen flex items-center justify-center bg-white">
-        <span className="text-lg font-medium text-gray-600 animate-pulse">
-          Loading...
-        </span>
-      </div>
-    );
+    return <Loading />;
   }
   return (
     <div className=" bg-base-100 p-4 md:p-8">
@@ -142,9 +135,7 @@ const UserDashboard = () => {
           {/* Current Balance Section */}
           <div className="lg:flex-1 bg-base-300 rounded-xl shadow-lg overflow-hidden">
             <div className="p-6">
-              <h2 className="text-xl font-semibold mb-4">
-                Current Balance
-              </h2>
+              <h2 className="text-xl font-semibold mb-4">Current Balance</h2>
               <div className="flex items-end gap-2">
                 <span className="text-4xl font-bold text-indigo-600">
                   BDT {balance.toFixed(2)}
@@ -171,9 +162,7 @@ const UserDashboard = () => {
           {/* Request Money Form */}
           <div className="lg:flex-1 bg-base-300 rounded-xl shadow-lg overflow-hidden">
             <div className="p-6">
-              <h2 className="text-xl font-semibold mb-4">
-                Add Money
-              </h2>
+              <h2 className="text-xl font-semibold mb-4">Add Money</h2>
               <form onSubmit={handleAddMoney}>
                 <div className="mb-6">
                   <label
@@ -209,9 +198,7 @@ const UserDashboard = () => {
           </div>
           <div className="lg:flex-1 bg-base-300 rounded-xl shadow-lg overflow-hidden">
             <div className="p-6">
-              <h2 className="text-xl font-semibold mb-4">
-                Pay Money
-              </h2>
+              <h2 className="text-xl font-semibold mb-4">Pay Money</h2>
               <form onSubmit={handlePayMoney}>
                 <div className="mb-6">
                   <label

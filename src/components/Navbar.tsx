@@ -5,6 +5,7 @@ import { useEffect, useRef, useState } from "react";
 import toast from "react-hot-toast";
 import useRole from "../hooks/useRole";
 import { FaMoon, FaSun } from "react-icons/fa";
+import Loading from "../pages/Loading";
 
 const Navbar = () => {
   const [theme, setTheme] = useState(() => {
@@ -61,6 +62,8 @@ const Navbar = () => {
         toast.error("Error logging out! " + error.message);
       });
   };
+
+  if(isLoading) return <Loading/>
 
   const links = (
     <>

@@ -1,14 +1,10 @@
 import { Toaster } from "react-hot-toast";
 import Navbar from "../components/Navbar";
-
-import useRole from "../hooks/useRole";
-
 import { Outlet } from "react-router-dom";
-import Footer from "../components/footer";
+import Footer from "../components/Footer";
+
 
 const MainLayout = () => {
-  const [type, isLoading] = useRole();
-  console.log(type);
   return (
     <div>
       <Toaster

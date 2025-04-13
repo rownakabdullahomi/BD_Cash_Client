@@ -12,15 +12,15 @@ import {
 import { useAuthContext } from "../../providers/AuthProvider";
 import useRole from "../../hooks/useRole";
 import Testimonial from "../../components/Testimonials";
-import { useEffect, useState } from "react";
-import useAxiosPublic from "../../hooks/useAxiosPublic";
+import { useState } from "react";
+import Loading from "../Loading";
+
 
 
 const Home = () => {
-  const navigate = useNavigate();
   const { user } = useAuthContext();
   const [type, isLoading] = useRole();
-  const axiosPublic = useAxiosPublic();
+
 
   const [stats, setStats] = useState({
     totalTransactions: 5000,
@@ -64,6 +64,8 @@ const Home = () => {
       description: "Full functionality on any device, anywhere",
     },
   ];
+
+  if (isLoading) return <Loading/>
 
   return (
     <div className="bg-gradient-to-b from-base-100 to-base-300">
