@@ -12,11 +12,13 @@ import Profile from "../pages/Profile";
 import PrivateRoute from "./PrivateRoute";
 import About from "../pages/About";
 import History from "../pages/History";
+import Error404 from "../pages/Error404";
 
 const Router = createBrowserRouter([
   {
     path: "/",
     element: <MainLayout />,
+    errorElement: <Error404 />,
     children: [
       {
         path: "/",

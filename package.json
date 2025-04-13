@@ -17,6 +17,7 @@
     "firebase": "^11.6.0",
     "framer-motion": "^12.6.5",
     "localforage": "^1.10.0",
+    "lottie-react": "^2.4.1",
     "match-sorter": "^8.0.0",
     "react": "^19.0.0",
     "react-countup": "^6.5.3",
