@@ -12,7 +12,6 @@ import {
 import { useAuthContext } from "../../providers/AuthProvider";
 import useRole from "../../hooks/useRole";
 import Testimonial from "../../components/Testimonials";
-import { useState } from "react";
 import Loading from "../Loading";
 
 
@@ -22,11 +21,11 @@ const Home = () => {
   const [type, isLoading] = useRole();
 
 
-  const [stats, setStats] = useState({
+  const stats = {
     totalTransactions: 5000,
     activeUsers: 450,
     totalVolume: 19,
-  });
+  };
 
   // Fetch platform stats
   // useEffect(() => {
@@ -69,7 +68,6 @@ const Home = () => {
 
   return (
     <div className="bg-gradient-to-b from-base-100 to-base-300">
-      
       {/* Hero Section */}
       <div className="relative overflow-hidden">
         <div className="max-w-7xl mx-auto">
